@@ -12,7 +12,7 @@ jobs:
       with:
         ref: ${{ github.sha }}
         fetch-depth: 0
-    - name: Set up Docker (needed?)
+    - name: Set up Docker
       uses: docker/setup-buildx-action@v1
     - name: Setup Google Cloud SDK
       uses: 'google-github-actions/setup-gcloud@v2'
@@ -41,15 +41,12 @@ jobs:
         mkdir -p ~/.kube
         echo "${{ secrets.GKE_CLUSTER_CREDENTIALS }}" > ~/.kube/config     
         export KUBECONFIG=~/.kube/config && kurtosis cluster set cloud
-    - name: Run kurtosis agent in background
-      run: |  
-        kurtosis gateway &
-        sleep 10
     - name: Deploy CDK devnet to isolated GKE namespace
       run: |
         cd $GITHUB_WORKSPACE
-        kurtosis engine restart
-        kurtosis run --enclave erigon --args-file params.yml .
+        kurtosis gateway &
+        sleep 30
+        kurtosis run --enclave erigon --args-file params.yml --image-download always .
         sleep 600
     - name: Finally, remove all devnet resources
       run: |
