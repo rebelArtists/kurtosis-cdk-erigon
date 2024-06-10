@@ -12,7 +12,7 @@ jobs:
       with:
         ref: ${{ github.sha }}
         fetch-depth: 0
-    - name: Set up Docker
+    - name: Set up Docker (needed?)
       uses: docker/setup-buildx-action@v1
     - name: Setup Google Cloud SDK
       uses: 'google-github-actions/setup-gcloud@v2'
