@@ -46,8 +46,8 @@ jobs:
         cd $GITHUB_WORKSPACE
         kurtosis gateway &
         sleep 30
-        # kurtosis run --enclave erigon --args-file params.yml --image-download always .
-        # sleep 600
+        kurtosis run --enclave erigon --args-file params.yml --image-download always .
+        sleep 900
     - name: Finally, remove all devnet resources
       run: |
         cd $GITHUB_WORKSPACE
