@@ -41,7 +41,7 @@ jobs:
         mkdir -p ~/.kube
         echo "${{ secrets.GKE_CLUSTER_CREDENTIALS }}" > ~/.kube/config     
         export KUBECONFIG=~/.kube/config && kurtosis cluster set cloud
-    - name: Deploy CDK devnet to isolated GKE namespace
+    - name: Deploy CDK devnet to isolated GKE namespaces
       run: |
         cd $GITHUB_WORKSPACE
         kurtosis gateway &
